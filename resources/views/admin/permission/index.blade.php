@@ -63,6 +63,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="px-6 py-4">
+                    {{ $permissions->links() }}
+                    </div>
                 </div>
             </div>
         </div>
