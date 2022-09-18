@@ -16,6 +16,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        $this->authorize('permission list');
         $permissions = Permission::all();
         return view('admin.permission.index', compact('permissions'));
     }
@@ -27,6 +28,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        $this->authorize('permission create');
         return view('admin.permission.create');
     }
 
@@ -38,6 +40,7 @@ class PermissionController extends Controller
      */
     public function store(StorePermissionRequest $request)
     {
+        $this->authorize('permission create');
         Permission::create($request->validated());
         return redirect()->route('permission.index');
     }
@@ -50,6 +53,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
+        $this->authorize('permission edit');
         return view('admin.permission.edit', compact('permission'));
     }
 
@@ -62,6 +66,7 @@ class PermissionController extends Controller
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
+        $this->authorize('permission edit');
         $permission->update($request->validated());
         return redirect()->route('permission.index');
     }
@@ -74,6 +79,7 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
+        $this->authorize('permission delete');
         $permission->delete();
         return redirect()->route('permission.index');
     }
