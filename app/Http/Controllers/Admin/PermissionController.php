@@ -17,7 +17,12 @@ class PermissionController extends Controller
     public function index()
     {
         $this->authorize('permission list');
-        $permissions = Permission::latest()->paginate(5);
+
+        $permissions = Permission::latest();
+        if (request()->has('search')) {
+            $permissions->where('name', 'Like', '%' . request()->input('search') . '%');
+        }
+        $permissions = $permissions->paginate(5);
         return view('admin.permission.index', compact('permissions'));
     }
 
