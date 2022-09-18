@@ -16,7 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('permission.index') }}" :active="request()->routeIs('permission.*')">
-                        {{ __('Permission') }}
+                        {{ __('Permissions') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('role.index') }}" :active="request()->routeIs('role.*')">
+                        {{ __('Roles') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -144,7 +147,10 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('permission.index') }}" :active="request()->routeIs('permission.*')">
-                {{ __('Permission') }}
+                {{ __('Permissions') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('role.index') }}" :active="request()->routeIs('role.*')">
+                {{ __('Roles') }}
             </x-jet-responsive-nav-link>
         </div>
 
