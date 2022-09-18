@@ -13,7 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->longText('address')->after('email_verified_at');
+            $table->string('phone')->after('address');
+            $table->string('staff_phone')->after('phone');
+        });
     }
 
     /**
@@ -23,6 +27,10 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('address');
+            $table->dropColumn('phone');
+            $table->dropColumn('staff_phone');
+        });
     }
 };
