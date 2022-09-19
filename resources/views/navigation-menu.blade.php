@@ -15,15 +15,21 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+                    @can('permission list')
                     <x-jet-nav-link href="{{ route('permission.index') }}" :active="request()->routeIs('permission.*')">
                         {{ __('Permissions') }}
                     </x-jet-nav-link>
+                    @endcan
+                    @can('role list')
                     <x-jet-nav-link href="{{ route('role.index') }}" :active="request()->routeIs('role.*')">
                         {{ __('Roles') }}
                     </x-jet-nav-link>
+                    @endcan
+                    @can('user list')
                     <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user.*')">
                         {{ __('Users') }}
                     </x-jet-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -149,15 +155,21 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
+            @can('permission list')
             <x-jet-responsive-nav-link href="{{ route('permission.index') }}" :active="request()->routeIs('permission.*')">
                 {{ __('Permissions') }}
             </x-jet-responsive-nav-link>
+            @endcan
+            @can('role list')
             <x-jet-responsive-nav-link href="{{ route('role.index') }}" :active="request()->routeIs('role.*')">
                 {{ __('Roles') }}
             </x-jet-responsive-nav-link>
+            @endcan
+            @can('user list')
             <x-jet-responsive-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user.*')">
                 {{ __('Users') }}
             </x-jet-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
