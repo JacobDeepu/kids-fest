@@ -30,8 +30,8 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="address" value="{{ __('Address') }}" />
-                <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
+                <x-jet-label for="place" value="{{ __('Place') }}" />
+                <x-jet-input id="place" class="block mt-1 w-full" type="text" name="place" :value="old('place')" required autofocus autocomplete="place" />
             </div>
 
             <div class="mt-4">
