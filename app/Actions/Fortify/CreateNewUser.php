@@ -44,6 +44,8 @@ class CreateNewUser implements CreatesNewUsers
             'staff_phone' => $input['staff_phone'],
         ]);
 
+        $user->assignRole('User');
+
         return $user;
     }
 }

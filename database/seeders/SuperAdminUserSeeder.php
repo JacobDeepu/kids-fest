@@ -16,6 +16,8 @@ class SuperAdminUserSeeder extends Seeder
     public function run()
     {
         Role::create(['name' => 'Super Admin']);
+        Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'User']);
 
         $adminUser = User::factory()->create([
             'email' => 'superadmin@admin.com',
