@@ -17,7 +17,7 @@
                             <x-jet-label for="name" value="{{ __('Name') }}" />
                             <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $role->name)" required autofocus autocomplete="name" />
                         </div>
-                        @unless ($role->name == env('APP_SUPER_ADMIN', 'super-admin'))
+                        @unless ($role->name == env('APP_SUPER_ADMIN', 'Super Admin'))
                         <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Permissions</h3>
                         <div class="grid grid-cols-4 gap-4">
                             @forelse ($permissions as $permission)
