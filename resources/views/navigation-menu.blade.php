@@ -20,6 +20,11 @@
                         {{ __('Sections') }}
                     </x-jet-nav-link>
                     @endcan
+                    @can('event list')
+                    <x-jet-nav-link href="{{ route('event.index') }}" :active="request()->routeIs('event.*')">
+                        {{ __('Events') }}
+                    </x-jet-nav-link>
+                    @endcan
                     @can('permission list')
                     <x-jet-nav-link href="{{ route('permission.index') }}" :active="request()->routeIs('permission.*')">
                         {{ __('Permissions') }}
@@ -162,6 +167,11 @@
             @can('section list')
             <x-jet-responsive-nav-link href="{{ route('section.index') }}" :active="request()->routeIs('section.*')">
                 {{ __('Sections') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('event list')
+            <x-jet-responsive-nav-link href="{{ route('event.index') }}" :active="request()->routeIs('event.*')">
+                {{ __('Events') }}
             </x-jet-responsive-nav-link>
             @endcan
             @can('permission list')
