@@ -18,9 +18,19 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::resource('permission', PermissionController::class);
-    Route::resource('role', RoleController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('section', SectionController::class);
-    Route::resource('event', EventController::class);
+    Route::resource('event', EventController::class)->except([
+        'show'
+    ]);
+    Route::resource('role', RoleController::class)->except([
+        'show'
+    ]);
+    Route::resource('user', UserController::class)->except([
+        'show'
+    ]);
+    Route::resource('section', SectionController::class)->except([
+        'show'
+    ]);
+    Route::resource('permission', PermissionController::class)->except([
+        'show'
+    ]);
 });
