@@ -15,4 +15,12 @@ class Event extends Model
         'min_participants',
         'max_participants',
     ];
+
+    /**
+     * Get the section that owns the event.
+     */
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
 }

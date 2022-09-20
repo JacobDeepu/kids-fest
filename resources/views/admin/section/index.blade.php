@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('section') }}
+            {{ __('Section') }}
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="flex justify-between items-center">
                         @can('section create')
-                        <x-link href="{{ route('section.create') }}" class="m-4">Create section</x-link>
+                        <x-link href="{{ route('section.create') }}" class="m-4">Create Section</x-link>
                         @endcan
                         <form class="m-4" method="GET" action="{{ route('section.index') }}">
                             <div class="flex w-56">

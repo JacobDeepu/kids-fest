@@ -12,4 +12,12 @@ class Section extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * Get the events for the section.
+     */
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }
