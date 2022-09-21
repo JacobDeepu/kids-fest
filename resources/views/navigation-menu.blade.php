@@ -15,6 +15,11 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+                    @can('participant registration')
+                    <x-jet-nav-link href="{{ route('participant.index') }}" :active="request()->routeIs('participant.*')">
+                        {{ __('Registration') }}
+                    </x-jet-nav-link>
+                    @endcan
                     @can('section list')
                     <x-jet-nav-link href="{{ route('section.index') }}" :active="request()->routeIs('section.*')">
                         {{ __('Sections') }}
