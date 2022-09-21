@@ -33,6 +33,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     {{ __('Name') }}
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    {{ __('Section') }}
+                                </th>
                                 @canany(['event edit', 'event delete'])
                                 <th scope="col" class="px-6 py-3">
                                     {{ __('Actions') }}
@@ -45,6 +48,9 @@
                             <tr class="bg-white border-b">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {{ $event->name }}
+                                </td>
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $event->section->name }}
                                 </td>
                                 @canany(['event edit', 'event delete'])
                                 <td class="px-0 py-4 w-56">
