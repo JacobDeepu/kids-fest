@@ -17,10 +17,10 @@ class Details extends Model
     ];
 
     /**
-     * Get the phone associated with the user.
+     * Get the user that owns the details.
      */
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }
