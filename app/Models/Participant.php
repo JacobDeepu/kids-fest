@@ -15,4 +15,20 @@ class Participant extends Model
         'user_id',
         'transaction_id'
     ];
+
+    /**
+     * Get the event that owns the participant.
+     */
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    /**
+     * Get the user that owns the participant.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -15,4 +15,12 @@ class Details extends Model
         'phone',
         'staff_phone',
     ];
+
+    /**
+     * Get the phone associated with the user.
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

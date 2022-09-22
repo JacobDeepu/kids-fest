@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreParticipantRequest;
 use App\Http\Requests\UpdateParticipantRequest;
+use App\Models\Details;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\Transaction;
@@ -18,10 +19,22 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        $this->authorize('participant register');
+        $this->authorize('participant list');
 
         $events = Event::all();
-        return view('participant.index', compact('events'));
+        $participants = Participant::latest();
+        $schools = Details::all();
+        $eventFilter = request()->has('event_filter') ? request()->input('event_filter') : 0;
+        $userFilter = request()->has('school_filter') ? request()->input('school_filter') : 0;
+
+        $eventFilter != 0 ? $participants->where('event_id', $eventFilter) : "";
+        $userFilter != 0 ? $participants->where('user_id', $userFilter) : "";
+
+        if (request()->has('search')) {
+            $participants->where('name', 'Like', '%' . request()->input('search') . '%');
+        }
+        $participants = $participants->paginate(5);
+        return view('participant.index', compact('events', 'schools', 'participants'));
     }
 
     /**
