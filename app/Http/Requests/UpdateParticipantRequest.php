@@ -24,8 +24,7 @@ class UpdateParticipantRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|string|max:255',
-            'section_id' => 'required',
+            'name.*'  => 'required|string|max:255'
         ];
     }
 }

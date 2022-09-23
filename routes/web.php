@@ -26,6 +26,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
-    Route::resource('participant', ParticipantController::class);
+
+    Route::resource('participant', ParticipantController::class)
+        ->except([
+            'show', 'edit', 'destroy'
+        ]);
+
+    Route::get('participant/{eventId}/edit', [ParticipantController::class, 'edit'])
+        ->name('participant.edit');
 });

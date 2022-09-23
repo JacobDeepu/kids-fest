@@ -23,4 +23,12 @@ class Event extends Model
     {
         return $this->belongsTo(Section::class);
     }
+
+    /**
+     * Get the participants for the event.
+     */
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
+    }
 }
