@@ -115,11 +115,10 @@ class ParticipantController extends Controller
     public function update(UpdateParticipantRequest $request, $eventId)
     {
         $this->authorize('participant edit');
-        $count = $request->max_participants;
+        $count = count($request->participant_id);
         $request->validated();
         for ($i = 0; $i < $count; $i++) {
-            Participant::where('user_id', $request->user_id)
-                ->where('event_id', $eventId)
+            Participant::where('id', $request->participant_id[$i])
                 ->update(['name' => $request->name[$i]]);
         }
         return redirect()->route('participant.index');

@@ -14,11 +14,9 @@
                         @csrf
                         @method('PUT')
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            <input id="user_id" name="user_id" value="{{ auth()->user()->id }}" hidden />
-                            <input id="event_id" name="event_id" value="{{ $event->id }}" hidden />
-                            <input id="max_participants" name="max_participants" value="{{ $event->max_participants }}" hidden />
                             @foreach($participants as $participant)
                                 <div>
+                                    <input id="participant_id[]" name="participant_id[]" value="{{ $participant->id }}" hidden />
                                     <x-jet-label for="name" value="{{ __('Name') }}" />
                                     <x-jet-input id="name[]" class="block mt-1 w-full" type="text" name="name[]" :value="old('name.'.$loop->index, $participant->name)" required autofocus autocomplete="name" />
                                 </div>
