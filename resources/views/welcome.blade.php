@@ -38,7 +38,7 @@
     <header class="relative z-50 w-full h-24">
         <div class="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
             <a href="/" class="relative flex items-center inline-block h-5 h-full font-black leading-none">
-                <x-application-logo class="block h-20 w-auto" />
+                <x-application-logo class="block h-12 w-auto md:h-20" />
             </a>
 
             <nav id="nav" class="absolute top-0 left-0 z-50 flex flex-col items-center justify-between hidden w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative">
@@ -54,12 +54,9 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="relative z-40 px-3 py-2 mr-0 text-sm font-bold text-pink-500 md:px-5 lg:text-white sm:mr-3 md:mt-0">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="relative z-40 px-3 py-2 mr-0 text-sm font-bold text-pink-500 md:px-5 lg:text-white sm:mr-3 md:mt-0">Login</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="relative z-40 inline-block w-auto h-full px-5 py-3 text-sm font-bold leading-none text-white transition-all transition duration-100 duration-300 bg-indigo-700 rounded shadow-md fold-bold lg:bg-white lg:text-indigo-700 sm:w-full lg:shadow-none hover:shadow-xl">Register
-                                Now
-                            </a>
-                        @endif
+                        <a href="{{ route('login') }}" class="relative z-40 inline-block w-auto h-full px-5 py-3 text-sm font-bold leading-none text-white transition-all transition duration-100 duration-300 bg-indigo-700 rounded shadow-md fold-bold lg:bg-white lg:text-indigo-700 sm:w-full lg:shadow-none hover:shadow-xl">
+                            Sign in
+                        </a>
                     @endauth
                 @endif
 
@@ -141,7 +138,7 @@
             </div>
             <div class="relative z-50 flex flex-col items-end justify-center w-full h-full lg:w-1/2 ms:pl-10">
                 <div class="container relative left-0 w-full max-w-4xl lg:absolute xl:max-w-6xl lg:w-screen">
-                    <img src="{{ asset('images/hero.png') }}" class="w-1/2 h-auto mt-20 mb-20 ml-0 lg:mt-24 xl:mt-40 lg:mb-0 lg:h-full lg:-ml-12">
+                    <img src="{{ asset('images/hero.png') }}" class="w-full h-auto mt-20 mb-20 ml-0 sm:w-1/2 lg:mt-24 xl:mt-40 lg:mb-0 lg:h-full lg:-ml-12">
                 </div>
             </div>
         </div>
