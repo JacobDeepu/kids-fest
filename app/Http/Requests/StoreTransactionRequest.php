@@ -24,6 +24,7 @@ class StoreTransactionRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required',
             'name'  => 'required|string|max:255',
             'amount' => 'required',
             'reference_no' => 'required',

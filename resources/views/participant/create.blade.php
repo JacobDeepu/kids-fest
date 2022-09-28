@@ -82,15 +82,17 @@
                     <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Transaction Details</h3>
                     <form method="POST" action="{{ route('transaction.store') }}">
                         @csrf
+                        <h4 class="inline-flex font-semibold text-l text-gray-800 leading-tight py-4">Total Amount = {{ $amount }}</h3>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <input id="user_id" name="user_id" value="{{ auth()->user()->id }}" hidden />
+                        <input id="amount" name="amount" value="{{ $amount }}" hidden />
                             <div>
                                 <x-jet-label for="name" value="{{ __('Account Holder Name') }}" />
                                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                             </div>
                             <div>
-                                <x-jet-label for="amount" value="{{ __('Amount') }}" />
-                                <x-jet-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="$amount" />
+                                <x-jet-label for="school" value="{{ __('School') }}" />
+                                <x-jet-input id="school" class="block mt-1 w-full" type="text" name="school" :value="auth()->user()->name" />
                             </div>
                             <div>
                                 <x-jet-label for="reference_no" value="{{ __('Reference Number') }}" />
