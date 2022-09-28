@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Http\Requests\StoreTransactionRequest;
+use App\Models\Details;
 
 class TransactionControler extends Controller
 {
@@ -14,7 +15,15 @@ class TransactionControler extends Controller
      */
     public function index()
     {
-        //
+        // $this->authorize('participant list');
+
+        $schools = Details::all();
+        $transactions = Transaction::latest();
+        // Filter
+        $userFilter = request()->has('school_filter') ? request()->input('school_filter') : 0;
+        $userFilter != 0 ? $transactions->where('user_id', $userFilter) : "";
+        $transactions = $transactions->paginate(5);
+        return view('transaction.index', compact('transactions', 'schools'));
     }
 
     /**
