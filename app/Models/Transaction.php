@@ -10,15 +10,18 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'name',
         'amount',
-        'number'
+        'reference_no',
+        'bank'
     ];
 
     /**
-     * Get the participants for the transaction.
+     * Get the user that owns the transaction.
      */
-    public function participants()
+    public function user()
     {
-        return $this->hasMany(Participant::class);
+        return $this->belongsTo(User::class);
     }
 }

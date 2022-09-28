@@ -15,8 +15,13 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained();
+            $table->string('name');
             $table->integer('amount');
-            $table->bigInteger('number');
+            $table->bigInteger('reference_no');
+            $table->string('bank');
             $table->timestamps();
         });
     }

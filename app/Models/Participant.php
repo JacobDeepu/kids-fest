@@ -12,8 +12,7 @@ class Participant extends Model
     protected $fillable = [
         'name',
         'event_id',
-        'user_id',
-        'transaction_id'
+        'user_id'
     ];
 
     /**
