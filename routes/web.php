@@ -31,7 +31,4 @@ Route::middleware([
         ->except([
             'show', 'edit', 'destroy'
         ]);
-
-    Route::get('participant/{eventId}/edit', [ParticipantController::class, 'edit'])
-        ->name('participant.edit');
 });

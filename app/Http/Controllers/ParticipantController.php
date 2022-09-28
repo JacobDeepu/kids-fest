@@ -21,16 +21,10 @@ class ParticipantController extends Controller
     {
         $this->authorize('participant list');
 
-        // For create listing
-        $events = Event::all();
-        $userId = auth()->user()->id;
-        $eventIds = Participant::where('user_id', $userId)
-            ->distinct()
-            ->orderBy('event_id')
-            ->pluck('event_id');
         //For participant listing
-        $participants = Participant::latest();
+        $events = Event::all();
         $schools = Details::all();
+        $participants = Participant::latest();
         // Filter
         $eventFilter = request()->has('event_filter') ? request()->input('event_filter') : 0;
         $userFilter = request()->has('school_filter') ? request()->input('school_filter') : 0;
@@ -41,7 +35,7 @@ class ParticipantController extends Controller
             $participants->where('name', 'Like', '%' . request()->input('search') . '%');
         }
         $participants = $participants->paginate(5);
-        return view('participant.index', compact('events', 'eventIds', 'schools', 'participants'));
+        return view('participant.index', compact('events', 'schools', 'participants'));
     }
 
     /**
@@ -53,10 +47,12 @@ class ParticipantController extends Controller
     public function create(Request $request)
     {
         $this->authorize('participant create');
-        $eventId = $request->query('event');
-        $event = Event::find($eventId);
-        $section = $event->section;
-        return view('participant.create', compact('event', 'section'));
+        // For create listing
+        $events = Event::all();
+        $userId = auth()->user()->id;
+        $participants = Participant::where('user_id', $userId)->get();
+        $eventIds = $participants->pluck('event_id');
+        return view('participant.create', compact('events', 'participants'));
     }
 
     /**
@@ -68,51 +64,22 @@ class ParticipantController extends Controller
     public function store(StoreParticipantRequest $request)
     {
         $this->authorize('participant create');
-        $count = $request->max_participants;
-        $request->validated();
-        $participants = [];
-        $amount = 0;
-        for ($i = 0; $i < $count; $i++) {
-            $amount += 50;
-            $participants[] = [
-                'name' => $request->name[$i],
-                'event_id' => $request->event_id,
-                'user_id' => $request->user_id,
-            ];
-        }
-
-        $transaction = Transaction::create([
-            'amount' => $amount,
-            'number' => 0
-        ]);
-        $transaction->participants()->createMany($participants);
-        return redirect()->route('participant.index');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($eventId)
-    {
-        $this->authorize('participant edit');
         $userId = auth()->user()->id;
-        $event = Event::find($eventId);
-        $participants = $event->participants
-            ->where('user_id', $userId);
-        return view('participant.edit', compact('event', 'participants'));
+        Participant::create([
+            'name' => $request->name,
+            'event_id' => $request->event_id,
+            'user_id' => $userId,
+        ]);
+        return redirect()->route('participant.create');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateParticipantRequest  $request
-     * @param  $eventId
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateParticipantRequest $request, $eventId)
+    public function update(UpdateParticipantRequest $request)
     {
         $this->authorize('participant edit');
         $count = count($request->participant_id);
@@ -121,6 +88,6 @@ class ParticipantController extends Controller
             Participant::where('id', $request->participant_id[$i])
                 ->update(['name' => $request->name[$i]]);
         }
-        return redirect()->route('participant.index');
+        return redirect()->route('participant.create');
     }
 }
