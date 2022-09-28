@@ -15,7 +15,7 @@ class TransactionControler extends Controller
      */
     public function index()
     {
-        // $this->authorize('participant list');
+        $this->authorize('transaction list');
 
         $schools = Details::all();
         $transactions = Transaction::latest();
@@ -34,7 +34,7 @@ class TransactionControler extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        // $this->authorize('participant create');
+        $this->authorize('transaction create');
         Transaction::create($request->validated());
         return redirect()->route('participant.create');
     }

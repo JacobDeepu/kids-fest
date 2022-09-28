@@ -25,6 +25,11 @@
                         {{ __('Registration') }}
                     </x-jet-nav-link>
                     @endcan
+                    @can('transaction create')
+                    <x-jet-nav-link href="{{ route('transaction.index') }}" :active="request()->routeIs('transaction.index')">
+                        {{ __('Transactions') }}
+                    </x-jet-nav-link>
+                    @endcan
                     @can('section list')
                     <x-jet-nav-link href="{{ route('section.index') }}" :active="request()->routeIs('section.*')">
                         {{ __('Sections') }}
@@ -182,6 +187,11 @@
             @can('participant create')
             <x-jet-responsive-nav-link href="{{ route('participant.create') }}" :active="request()->routeIs('participant.create')">
                 {{ __('Registration') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('transaction create')
+            <x-jet-responsive-nav-link href="{{ route('transaction.index') }}" :active="request()->routeIs('transaction.index')">
+                {{ __('Transactions') }}
             </x-jet-responsive-nav-link>
             @endcan
             @can('section list')
