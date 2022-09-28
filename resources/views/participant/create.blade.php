@@ -27,16 +27,16 @@
                                     @csrf
                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                         <input name="event_id" value="{{ $event->id }}" hidden>
-                                            <div>
-                                                <x-jet-label for="name" value="{{ __('Name') }}" />
-                                                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" autocomplete="name" />
-                                            </div>
-                                            <div>
-                                                <x-jet-label for="section" value="{{ __('Class') }}" />
-                                                <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" name="section_id">
-                                                    <option value="{{ $event->section->id }}" selected>{{ $event->section->name }}</option>
-                                                </select>
-                                            </div>
+                                        <div>
+                                            <x-jet-label for="name" value="{{ __('Name') }}" />
+                                            <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" autocomplete="name" />
+                                        </div>
+                                        <div>
+                                            <x-jet-label for="section" value="{{ __('Class') }}" />
+                                            <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" name="section_id">
+                                                <option value="{{ $event->section->id }}" selected>{{ $event->section->name }}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="flex mt-4">
                                         <x-jet-button>
@@ -75,13 +75,36 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="flex justify-between mt-4">
-                        <div class="py-4">
+                    @if(!auth()->user()->transaction)
+                    <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Transaction Details</h3>
+                    <form method="POST" action="{{ route('transaction.store') }}">
+                        @csrf
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <input id="user_id" name="user_id" value="{{ auth()->user()->id }}" hidden />
+                            <div>
+                                <x-jet-label for="name" value="{{ __('Account Holder Name') }}" />
+                                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                            </div>
+                            <div>
+                                <x-jet-label for="amount" value="{{ __('Amount') }}" />
+                                <x-jet-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="$amount" />
+                            </div>
+                            <div>
+                                <x-jet-label for="reference_no" value="{{ __('Reference Number') }}" />
+                                <x-jet-input id="reference_no" class="block mt-1 w-full" type="text" name="reference_no" :value="old('reference_no')" required autofocus autocomplete="reference_no" />
+                            </div>
+                            <div>
+                                <x-jet-label for="bank" value="{{ __('Bank Name') }}" />
+                                <x-jet-input id="bank" class="block mt-1 w-full" type="text" name="bank" :value="old('bank')" required autofocus autocomplete="bank" />
+                            </div>
+                        </div>
+                        <div class="flex mt-4">
                             <x-jet-button>
                                 {{ __('Save') }}
                             </x-jet-button>
                         </div>
-                    </div>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>

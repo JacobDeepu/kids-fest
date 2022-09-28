@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ParticipantController;
+use App\Http\Controllers\TransactionControler;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +31,9 @@ Route::middleware([
     Route::resource('participant', ParticipantController::class)
         ->except([
             'show', 'edit', 'destroy'
+        ]);
+    Route::resource('transaction', TransactionControler::class)
+        ->only([
+            'index', 'store'
         ]);
 });

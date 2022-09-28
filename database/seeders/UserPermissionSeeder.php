@@ -21,7 +21,6 @@ class UserPermissionSeeder extends Seeder
 
         $role = Role::findByName('User');
         $role->givePermissionTo([
-            'participant list',
             'participant create',
             'participant edit'
         ]);

@@ -60,4 +60,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+        /**
+     * Get the phone associated with the user.
+     */
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
 }

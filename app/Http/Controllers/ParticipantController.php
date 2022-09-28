@@ -52,7 +52,8 @@ class ParticipantController extends Controller
         $userId = auth()->user()->id;
         $participants = Participant::where('user_id', $userId)->get();
         $eventIds = $participants->pluck('event_id');
-        return view('participant.create', compact('events', 'participants'));
+        $amount = (count($participants->where('event_id', '!=', 14)) + 1) * 50;
+        return view('participant.create', compact('events', 'participants', 'amount'));
     }
 
     /**
