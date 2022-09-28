@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateParticipantRequest;
 use App\Models\Details;
 use App\Models\Event;
 use App\Models\Participant;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class ParticipantController extends Controller

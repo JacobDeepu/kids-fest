@@ -10,6 +10,9 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4">
                     <x-jet-validation-errors class="mb-4" />
+                    @if(auth()->user()->transaction)
+                    <h3 class="inline-flex font-semibold text-xl text-red-800 leading-tight py-4">Final Submission Done!! Only Editing Allowed</h3>
+                    @endif
                     <div id="accordion-collapse" data-accordion="collapse">
                         @foreach($events as $event)
                         <h3 id="accordion-collapse-heading-{{ $event->id }}" class="font-semibold text-xl text-gray-800 leading-tight">
@@ -22,7 +25,7 @@
                         </h3>
                         <div id="accordion-collapse-body-{{ $event->id }}" class="" aria-labelledby="accordion-collapse-heading-{{ $event->id }}">
                             <div class="p-5 font-light border {{ $loop->last ? 'border-t-0' : 'border-b-0' }} border-gray-200">
-                                @if($participants->where('event_id', $event->id)->count() != $event->max_participants)
+                                @if(!auth()->user()->transaction && ($participants->where('event_id', $event->id)->count() != $event->max_participants))
                                 <form method="POST" action="{{ route('participant.store') }}">
                                     @csrf
                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -40,7 +43,7 @@
                                     </div>
                                     <div class="flex mt-4">
                                         <x-jet-button>
-                                            {{ __('Save') }}
+                                            {{ __('Add') }}
                                         </x-jet-button>
                                     </div>
                                 </form>
@@ -66,7 +69,7 @@
                                     </div>
                                     <div class="flex mt-4">
                                         <x-jet-button>
-                                            {{ __('Save') }}
+                                            {{ __('Edit') }}
                                         </x-jet-button>
                                     </div>
                                 </form>
@@ -100,7 +103,7 @@
                         </div>
                         <div class="flex mt-4">
                             <x-jet-button>
-                                {{ __('Save') }}
+                                {{ __('Final Submit') }}
                             </x-jet-button>
                         </div>
                     </form>
