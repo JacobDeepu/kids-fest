@@ -86,9 +86,13 @@
                     </div>
                     @if(!auth()->user()->transaction)
                     <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Transaction Details</h3>
+                    <p class="ml-4 text-lg text-gray-800 font-semibold">Account details</p>
+                    <div class="ml-4 text-base text-gray-600">
+                        <p>Name : Dummy</p>
+                    </div>
                     <form method="POST" action="{{ route('transaction.store') }}">
                         @csrf
-                        <h4 class="inline-flex font-semibold text-l text-gray-800 leading-tight py-4">Total Amount = {{ $amount }}</h3>
+                        <p class="m-4 text-base font-semibold text-blue-900">Total Amount = {{ $amount }}</p>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <input id="user_id" name="user_id" value="{{ auth()->user()->id }}" hidden />
                         <input id="amount" name="amount" value="{{ $amount }}" hidden />
