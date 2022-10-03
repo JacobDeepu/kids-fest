@@ -61,11 +61,19 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-        /**
-     * Get the phone associated with the user.
+    /**
+     * Get the transaction associated with the user.
      */
     public function transaction()
     {
         return $this->hasOne(Transaction::class);
+    }
+
+    /**
+     * Get the participants for the user.
+     */
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
     }
 }

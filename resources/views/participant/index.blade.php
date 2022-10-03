@@ -7,8 +7,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden">
-                <div class="bg-white relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="flex justify-between items-center">
                         <form class="m-4" method="GET" action="{{ route('participant.index') }}">
                             <div class="flex">
@@ -81,7 +81,7 @@
                             @empty
                             <tr class="bg-white border-b">
                                 <td colspan="2" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ __('No Events Found') }}
+                                    {{ __('No Participants Found') }}
                                 </td>
                             </tr>
                             @endforelse

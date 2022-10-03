@@ -23,7 +23,12 @@ class ParticipantController extends Controller
         //For participant listing
         $events = Event::all();
         $schools = Details::all();
-        $participants = Participant::latest();
+        $user = auth()->user();
+        if ($user->hasRole('User')) {
+            $participants = $user->participants()->latest();
+        } else {
+            $participants = Participant::latest();
+        }
         // Filter
         $eventFilter = request()->has('event_filter') ? request()->input('event_filter') : 0;
         $userFilter = request()->has('school_filter') ? request()->input('school_filter') : 0;
@@ -51,7 +56,7 @@ class ParticipantController extends Controller
         $userId = auth()->user()->id;
         $participants = Participant::where('user_id', $userId)->get();
         $eventIds = $participants->pluck('event_id');
-        $amount = (count($participants->where('event_id', '!=', 14)) + 1) * 50;
+        $amount = count($participants) * 50;
         return view('participant.create', compact('events', 'participants', 'amount'));
     }
 
