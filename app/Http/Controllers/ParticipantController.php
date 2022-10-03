@@ -70,7 +70,7 @@ class ParticipantController extends Controller
             'event_id' => $request->event_id,
             'user_id' => $userId,
         ]);
-        return redirect()->route('participant.create');
+        return redirect()->route('participant.create')->withInput();
     }
 
     /**
