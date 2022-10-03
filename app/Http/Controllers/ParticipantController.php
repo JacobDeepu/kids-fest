@@ -64,9 +64,10 @@ class ParticipantController extends Controller
     public function store(StoreParticipantRequest $request)
     {
         $this->authorize('participant create');
+        $request->validated();
         $userId = auth()->user()->id;
         Participant::create([
-            'name' => $request->name,
+            'name' => strtoupper($request->name),
             'event_id' => $request->event_id,
             'user_id' => $userId,
         ]);
@@ -86,7 +87,7 @@ class ParticipantController extends Controller
         $request->validated();
         for ($i = 0; $i < $count; $i++) {
             Participant::where('id', $request->participant_id[$i])
-                ->update(['name' => $request->name[$i]]);
+                ->update(['name' => strtoupper($request->name[$i])]);
         }
         return redirect()->route('participant.create');
     }
