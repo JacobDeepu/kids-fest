@@ -15,17 +15,17 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    @can('participant list')
-                    <x-jet-nav-link href="{{ route('participant.index') }}" :active="request()->routeIs('participant.index')">
-                        {{ __('Participants') }}
-                    </x-jet-nav-link>
-                    @endcan
                     @can('participant create')
                     <x-jet-nav-link href="{{ route('participant.create') }}" :active="request()->routeIs('participant.create')">
                         {{ __('Registration') }}
                     </x-jet-nav-link>
                     @endcan
-                    @can('transaction create')
+                    @can('participant list')
+                    <x-jet-nav-link href="{{ route('participant.index') }}" :active="request()->routeIs('participant.index')">
+                        {{ __('Participants') }}
+                    </x-jet-nav-link>
+                    @endcan
+                    @can('transaction list')
                     <x-jet-nav-link href="{{ route('transaction.index') }}" :active="request()->routeIs('transaction.index')">
                         {{ __('Transactions') }}
                     </x-jet-nav-link>
@@ -179,17 +179,17 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            @can('participant list')
-            <x-jet-responsive-nav-link href="{{ route('participant.index') }}" :active="request()->routeIs('participant.index')">
-                {{ __('Participants') }}
-            </x-jet-responsive-nav-link>
-            @endcan
             @can('participant create')
             <x-jet-responsive-nav-link href="{{ route('participant.create') }}" :active="request()->routeIs('participant.create')">
                 {{ __('Registration') }}
             </x-jet-responsive-nav-link>
             @endcan
-            @can('transaction create')
+            @can('participant list')
+            <x-jet-responsive-nav-link href="{{ route('participant.index') }}" :active="request()->routeIs('participant.index')">
+                {{ __('Participants') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('transaction list')
             <x-jet-responsive-nav-link href="{{ route('transaction.index') }}" :active="request()->routeIs('transaction.index')">
                 {{ __('Transactions') }}
             </x-jet-responsive-nav-link>
