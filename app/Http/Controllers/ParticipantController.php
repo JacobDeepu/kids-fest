@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateParticipantRequest;
 use App\Models\Details;
 use App\Models\Event;
 use App\Models\Participant;
-use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
 {
@@ -45,13 +44,11 @@ class ParticipantController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $this->authorize('participant create');
-        // For create listing
         $events = Event::all();
         $userId = auth()->user()->id;
         $participants = Participant::where('user_id', $userId)->get();
@@ -71,29 +68,53 @@ class ParticipantController extends Controller
         $this->authorize('participant create');
         $request->validated();
         $userId = auth()->user()->id;
+        $event = $request->event_id;
         Participant::create([
             'name' => strtoupper($request->name),
-            'event_id' => $request->event_id,
+            'event_id' => $event,
             'user_id' => $userId,
         ]);
-        return redirect()->route('participant.create')->withInput();
+        session()->put('event', $event);
+        return redirect(url()->previous() .'#accordion-heading-' . $event);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Participant  $participant
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Participant $participant)
+    {
+        $this->authorize('participant edit');
+        return view('participant.edit', compact('participant'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateParticipantRequest  $request
+     * @param  \App\Models\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateParticipantRequest $request)
+    public function update(UpdateParticipantRequest $request, Participant $participant)
     {
         $this->authorize('participant edit');
-        $count = count($request->participant_id);
         $request->validated();
-        for ($i = 0; $i < $count; $i++) {
-            Participant::where('id', $request->participant_id[$i])
-                ->update(['name' => strtoupper($request->name[$i])]);
-        }
-        return redirect()->route('participant.create');
+        $participant->update(['name' => strtoupper($request->name)]);
+        return redirect()->route('participant.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Participant  $participant
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Participant $participant)
+    {
+        $this->authorize('participant delete');
+        $participant->delete();
+        return redirect()->route('participant.index');
     }
 }

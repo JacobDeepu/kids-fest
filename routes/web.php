@@ -28,10 +28,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('participant', ParticipantController::class)
-        ->except([
-            'show', 'edit', 'destroy'
-        ]);
+    Route::resource('participant', ParticipantController::class);
     Route::resource('transaction', TransactionControler::class)
         ->only([
             'index', 'store'
