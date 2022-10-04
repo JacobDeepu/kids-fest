@@ -20,7 +20,7 @@ return new class extends Migration
                 ->constrained();
             $table->string('name');
             $table->integer('amount');
-            $table->bigInteger('reference_no');
+            $table->string('reference_no');
             $table->string('bank');
             $table->timestamps();
         });
