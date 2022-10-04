@@ -23,10 +23,10 @@ class ParticipantController extends Controller
         $events = Event::all();
         $schools = Details::all();
         $user = auth()->user();
-        if ($user->hasRole('User')) {
-            $participants = $user->participants()->latest();
-        } else {
+        if ($user->can('filter by school')) {
             $participants = Participant::latest();
+        } else {
+            $participants = $user->participants()->latest();
         }
         // Filter
         $eventFilter = request()->has('event_filter') ? request()->input('event_filter') : 0;
