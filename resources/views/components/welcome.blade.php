@@ -1,9 +1,9 @@
 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
     <div class="flex items-center justify-center px-8 mx-auto xl:px-0">
-        <div class="m-8 text-2xl text-rose-700">
-        Welcome to Kids Fest 2022
-        </div>
         <x-application-logo class="inline-flex h-24 w-auto" />
+    </div>
+    <div class="m-8 text-center text-2xl font-bold text-rose-700">
+        Welcome to Kids Fest 2022
     </div>
 
     <div class="mt-6 text-gray-500">
