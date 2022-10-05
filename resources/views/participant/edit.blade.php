@@ -22,6 +22,12 @@
                                 <x-jet-label for="event" value="{{ __('Event') }}" />
                                 <x-jet-input id="event" class="block mt-1 w-full" type="text" name="event" :value="old('event', $participant->event->name)" disabled />
                             </div>
+                            <div>
+                                <x-jet-label for="section" value="{{ __('Class') }}" />
+                                <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" name="section_id">
+                                    <option value="{{ $participant->event->section->id }}" selected>{{ $participant->event->section->name }}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="flex mt-4">
                             <x-jet-button>
