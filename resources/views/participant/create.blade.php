@@ -22,27 +22,22 @@
                         </h3>
                         <div id="accordion-body-{{ $event->id }}" class="" aria-labelledby="accordion-heading-{{ $event->id }}">
                             <div class="p-5 font-light border {{ $loop->last ? 'border-t-0' : 'border-b-0' }} border-gray-200">
-                            @php
-                                $count = $event->max_participants - $participants->where('event_id', $event->id)->count();
-                            @endphp
-                            @if($count)
+                                @if($participants->where('event_id', $event->id)->count() != $event->max_participants)
                                 <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Add new participant</h3>
                                 <form method="POST" action="{{ route('participant.store') }}">
                                     @csrf
                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                         <input name="event_id" value="{{ $event->id }}" hidden>
-                                        @for($i = 0; $i < $count; $i++)
-                                            <div>
-                                                <x-jet-label for="name" value="{{ __('Name') }}" />
-                                                <x-jet-input id="name[]" class="block mt-1 w-full" type="text" name="name[]" :value="old('name.' . $i)" required autofocus autocomplete="name" />
-                                            </div>
-                                            <div>
-                                                <x-jet-label for="section" value="{{ __('Class') }}" />
-                                                <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" name="section_id">
-                                                    <option value="{{ $event->section->id }}" selected>{{ $event->section->name }}</option>
-                                                </select>
-                                            </div>
-                                        @endfor
+                                        <div>
+                                            <x-jet-label for="name" value="{{ __('Name') }}" />
+                                            <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" autocomplete="name" />
+                                        </div>
+                                        <div>
+                                            <x-jet-label for="section" value="{{ __('Class') }}" />
+                                            <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" name="section_id">
+                                                <option value="{{ $event->section->id }}" selected>{{ $event->section->name }}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="flex mt-4">
                                         <x-jet-button>
@@ -50,11 +45,11 @@
                                         </x-jet-button>
                                     </div>
                                 </form>
-                            @else
+                                @else
                                 <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {{ __('No More Participants Can Be Added') }}
                                 </div>
-                            @endif
+                                @endif
                             </div>
                         </div>
                         @endforeach

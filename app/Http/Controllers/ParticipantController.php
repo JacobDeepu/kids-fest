@@ -69,16 +69,13 @@ class ParticipantController extends Controller
         $request->validated();
         $userId = auth()->user()->id;
         $event = $request->event_id;
-        $count = count($request->name);
-        for ($i = 0; $i < $count; $i++) {
-            Participant::create([
-                'name' => strtoupper($request->name[$i]),
-                'event_id' => $event,
-                'user_id' => $userId,
-            ]);
-        }
+        Participant::create([
+            'name' => strtoupper($request->name),
+            'event_id' => $event,
+            'user_id' => $userId,
+        ]);
         session()->put('event', $event);
-        return redirect(url()->previous() . '#accordion-heading-' . $event);
+        return redirect(url()->previous() .'#accordion-heading-' . $event);
     }
 
     /**
