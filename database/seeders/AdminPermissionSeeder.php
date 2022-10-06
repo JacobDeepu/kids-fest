@@ -26,7 +26,8 @@ class AdminPermissionSeeder extends Seeder
             'event edit',
             'event delete',
             'participant list',
-            'transaction list'
+            'transaction list',
+            'filter by school'
         ];
 
         foreach ($permissions as $permission) {

@@ -18,12 +18,15 @@ class UserPermissionSeeder extends Seeder
     {
         Permission::create(['name' => 'participant create']);
         Permission::create(['name' => 'participant edit']);
+        Permission::create(['name' => 'participant delete']);
         Permission::create(['name' => 'transaction create']);
 
         $role = Role::findByName('User');
         $role->givePermissionTo([
+            'participant list',
             'participant create',
             'participant edit',
+            'participant delete',
             'transaction create'
         ]);
     }
