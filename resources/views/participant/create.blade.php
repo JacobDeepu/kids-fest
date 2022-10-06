@@ -10,6 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-4">
                     <x-jet-validation-errors class="mb-4" />
+                    @if(!auth()->user()->transaction)
                     <div id="accordion" data-accordion="collapse">
                         @foreach($events as $event)
                         <h3 id="accordion-heading-{{ $event->id }}" class="font-semibold text-xl text-gray-800 leading-tight">
@@ -23,14 +24,18 @@
                         <div id="accordion-body-{{ $event->id }}" class="" aria-labelledby="accordion-heading-{{ $event->id }}">
                             <div class="p-5 font-light border {{ $loop->last ? 'border-t-0' : 'border-b-0' }} border-gray-200">
                                 @if($participants->where('event_id', $event->id)->count() != $event->max_participants)
-                                <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Add new participant</h3>
+                                <div class="flex justify-between">
+                                    <h3 class="font-semibold text-xl text-gray-800 py-4">Add new participant</h3>
+                                    <h3 class="font-semibold text-xl text-gray-800 py-4">Added: {{ $participants->where('event_id', $event->id)->count() }}</h3>
+                                    <h3 class="font-semibold text-xl text-gray-800 py-4">Maximum: {{ $event->max_participants }}</h3>
+                                </div>
                                 <form method="POST" action="{{ route('participant.store') }}">
                                     @csrf
                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                         <input name="event_id" value="{{ $event->id }}" hidden>
                                         <div>
                                             <x-jet-label for="name" value="{{ __('Name') }}" />
-                                            <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" autocomplete="name" />
+                                            <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                                         </div>
                                         <div>
                                             <x-jet-label for="section" value="{{ __('Class') }}" />
@@ -47,14 +52,13 @@
                                 </form>
                                 @else
                                 <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ __('No More Participants Can Be Added') }}
+                                    {{ __('Please use Participants tab for editing / modification') }}
                                 </div>
                                 @endif
                             </div>
                         </div>
                         @endforeach
                     </div>
-                    @if(!auth()->user()->transaction)
                     <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Transaction Details</h3>
                     <p class="ml-4 text-lg text-gray-800 font-semibold">Account details</p>
                     <div class="ml-4 text-base text-gray-600">
@@ -89,6 +93,10 @@
                             </x-jet-button>
                         </div>
                     </form>
+                    @else
+                    <div class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{ __('Please use Participants tab for editing / modification') }}
+                    </div>
                     @endif
                 </div>
             </div>
