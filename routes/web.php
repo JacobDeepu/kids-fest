@@ -28,7 +28,9 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/participant/export-pdf', [ParticipantController::class, 'exportPDF'])->name('participant.export');
     Route::resource('participant', ParticipantController::class);
+
     Route::resource('transaction', TransactionControler::class)
         ->only([
             'index', 'store'

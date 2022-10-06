@@ -32,6 +32,9 @@
                                     <x-jet-button class="inline-flex">
                                         {{ __('Filter') }}
                                     </x-jet-button>
+                                    <x-link href="{{ route('participant.export') }}">
+                                        Print
+                                    </x-link>
                                 </div>
                             </div>
                         </form>

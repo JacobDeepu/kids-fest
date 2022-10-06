@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateParticipantRequest;
 use App\Models\Details;
 use App\Models\Event;
 use App\Models\Participant;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ParticipantController extends Controller
 {
@@ -75,7 +76,7 @@ class ParticipantController extends Controller
             'user_id' => $userId,
         ]);
         session()->put('event', $event);
-        return redirect(url()->previous() .'#accordion-heading-' . $event);
+        return redirect(url()->previous() . '#accordion-heading-' . $event);
     }
 
     /**
@@ -116,5 +117,21 @@ class ParticipantController extends Controller
         $this->authorize('participant delete');
         $participant->delete();
         return redirect()->route('participant.index');
+    }
+
+    /**
+     * Export as pdf.
+     */
+    public function exportPDF()
+    {
+        $user = auth()->user();
+        $participants = $user->participants()->get();
+        $data = [
+            'title' => 'Participant List',
+            'date' => date('m/d/Y'),
+            'participants' => $participants
+        ];
+        $pdf = PDF::loadView('participant.export', $data);
+        return $pdf->download('participants.pdf');
     }
 }
