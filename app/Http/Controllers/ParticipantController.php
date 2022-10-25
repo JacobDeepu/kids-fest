@@ -125,9 +125,15 @@ class ParticipantController extends Controller
     public function exportPDF()
     {
         $user = auth()->user();
-        $participants = $user->participants()->get();
+        $name = auth()->user()->name;
+        if ($user->can('filter by school')) {
+            $participants = Participant::get();
+        } else {
+            $participants = $user->participants()->get();
+        }
         $data = [
             'title' => 'Participant List',
+            'name' => $name,
             'date' => date('m/d/Y'),
             'participants' => $participants
         ];

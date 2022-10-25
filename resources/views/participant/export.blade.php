@@ -27,6 +27,8 @@
 </head>
 
 <body>
+    <h1>Kids Fest 2022</h1>
+    <h2>{{ $name }}</h2>
     <table>
         <thead>
             <tr>
