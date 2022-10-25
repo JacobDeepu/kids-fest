@@ -29,6 +29,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/participant/export-pdf', [ParticipantController::class, 'exportPDF'])->name('participant.export');
+    Route::get('/participant/export-excel', [ParticipantController::class, 'exportExcel'])->name('participant.excel');
     Route::resource('participant', ParticipantController::class);
 
     Route::resource('transaction', TransactionControler::class)

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ParticpantsExport;
 use App\Http\Requests\StoreParticipantRequest;
 use App\Http\Requests\UpdateParticipantRequest;
 use App\Models\Details;
 use App\Models\Event;
 use App\Models\Participant;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParticipantController extends Controller
 {
@@ -139,5 +141,13 @@ class ParticipantController extends Controller
         ];
         $pdf = PDF::loadView('participant.export', $data);
         return $pdf->download('participants.pdf');
+    }
+
+    /**
+     * Export as excel.
+     */
+    public function exportExcel()
+    {
+        return Excel::download(new ParticpantsExport, 'participants.xlsx');
     }
 }

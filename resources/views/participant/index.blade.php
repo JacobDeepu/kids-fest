@@ -35,6 +35,11 @@
                                     <x-link href="{{ route('participant.export') }}">
                                         Print
                                     </x-link>
+                                    @can('export as excel')
+                                    <x-link href="{{ route('participant.excel') }}">
+                                        Excel
+                                    </x-link>
+                                    @endcan
                                 </div>
                             </div>
                         </form>
