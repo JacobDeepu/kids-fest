@@ -56,6 +56,9 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
+                                    {{ __('Sl No.') }}
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     {{ __('Name') }}
                                 </th>
                                 <th scope="col" class="px-6 py-3">
@@ -79,6 +82,9 @@
                         <tbody>
                             @forelse ($participants as $participant)
                             <tr class="bg-white border-b">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $loop->iteration }}
+                                </td>
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {{ $participant->name }}
                                 </td>

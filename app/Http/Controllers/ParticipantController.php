@@ -38,7 +38,7 @@ class ParticipantController extends Controller
         if (request()->has('search')) {
             $participants->where('name', 'Like', '%' . request()->input('search') . '%');
         }
-        $participants = $participants->paginate(5);
+        $participants = $participants->paginate(20);
         return view('participant.index', compact('events', 'schools', 'participants'));
     }
 
