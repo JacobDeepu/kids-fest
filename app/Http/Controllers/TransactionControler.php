@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionsExport;
 use App\Models\Transaction;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Models\Details;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionControler extends Controller
 {
@@ -37,5 +40,29 @@ class TransactionControler extends Controller
         $this->authorize('transaction create');
         Transaction::create($request->validated());
         return redirect()->route('participant.create');
+    }
+    
+    /**
+     * Export as pdf.
+     */
+    public function exportPDF()
+    {
+        $schools = Details::all();
+        $transactions = Transaction::all();
+        $data = [
+            'title' => 'School List',
+            'schools' => $schools,
+            'transactions' => $transactions
+        ];
+        $pdf = PDF::loadView('transaction.export', $data);
+        return $pdf->download('transaction.pdf');
+    }
+    
+    /**
+     * Export as excel.
+     */
+    public function export()
+    {
+        return Excel::download(new TransactionsExport(), 'schools.xlsx');
     }
 }
