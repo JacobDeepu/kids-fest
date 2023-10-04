@@ -35,9 +35,9 @@
                                     <x-link href="{{ route('participant.export') }}">
                                         Print
                                     </x-link>
-                                    @can('export as excel')
-                                    <x-link href="{{ route('participant.excel') }}">
-                                        Excel
+                                    @can('export excel')
+                                    <x-link href="{{ route('participant.excel', ['event_filter'=>request()->get('event_filter'), 'school_filter'=>request()->get('school_filter')]) }}">
+                                        Export
                                     </x-link>
                                     @endcan
                                 </div>

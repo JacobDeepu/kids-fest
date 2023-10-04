@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ParticpantsExport;
+use App\Exports\ParticipantsExport;
 use App\Http\Requests\StoreParticipantRequest;
 use App\Http\Requests\UpdateParticipantRequest;
 use App\Models\Details;
@@ -57,7 +57,8 @@ class ParticipantController extends Controller
         $participants = Participant::where('user_id', $userId)->get();
         $eventIds = $participants->pluck('event_id');
         $amount = count($participants) * 50;
-        return view('participant.create', compact('events', 'participants', 'amount'));
+        $schools = Details::all();
+        return view('participant.create', compact('events', 'participants', 'amount', 'schools'));
     }
 
     /**
@@ -70,7 +71,11 @@ class ParticipantController extends Controller
     {
         $this->authorize('participant create');
         $request->validated();
-        $userId = auth()->user()->id;
+        if(request()->has('school_id') && $request->school_id != ""){
+            $userId = $request->school_id;
+        }else{
+            $userId = auth()->user()->id;
+        }
         $event = $request->event_id;
         Participant::create([
             'name' => strtoupper($request->name),
@@ -135,19 +140,21 @@ class ParticipantController extends Controller
         }
         $data = [
             'title' => 'Participant List',
-            'name' => $name,
             'date' => date('m/d/Y'),
+            'name' => $name,
             'participants' => $participants
         ];
         $pdf = PDF::loadView('participant.export', $data);
         return $pdf->download('participants.pdf');
     }
-
     /**
      * Export as excel.
      */
-    public function exportExcel()
+    public function export()
     {
-        return Excel::download(new ParticpantsExport, 'participants.xlsx');
+        // Filter
+        $eventFilter = request()->has('event_filter') ? request()->input('event_filter') : 0;
+        $userFilter = request()->has('school_filter') ? request()->input('school_filter') : 0;
+        return Excel::download(new ParticipantsExport($eventFilter, $userFilter), 'participants.xlsx');
     }
 }
