@@ -43,6 +43,17 @@
                                                 <option value="{{ $event->section->id }}" selected>{{ $event->section->name }}</option>
                                             </select>
                                         </div>
+                                        @can('admin participant create')
+                                        <div>
+                                            <x-jet-label for="school_id" value="{{ __('School') }}" />
+                                            <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" name="school_id">
+                                                <option value="" selected>-----</option>
+                                            @foreach( $schools as $school )
+                                                <option value="{{ $school->user->id }}">{{ $school->user->name }}</option>
+                                            @endforeach    
+                                            </select>
+                                        </div>
+                                        @endcan
                                     </div>
                                     <div class="flex mt-4">
                                         <x-jet-button>
@@ -62,7 +73,11 @@
                     <h3 class="inline-flex font-semibold text-xl text-gray-800 leading-tight py-4">Transaction Details</h3>
                     <p class="ml-4 text-lg text-gray-800 font-semibold">Account details</p>
                     <div class="ml-4 text-base text-gray-600">
-                        <p>Name : Dummy</p>
+                        <p>Name : RAJAGIRI KINDERGARTEN PTA</p>
+                        <p>A/C No : 10120100127012</p>
+                        <p>BANK : FEDERAL BANK</p>
+                        <p>BRANCH : KALAMASSERY</p>
+                        <p>IFSC CODE : FDRL0001012</p>
                     </div>
                     <form method="POST" action="{{ route('transaction.store') }}">
                         @csrf
